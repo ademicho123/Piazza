@@ -5,6 +5,10 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 require('dotenv/config')
 
+mongoose.connect(process.env.DB_CONNECTOR)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
 
 app.use(bodyParser.json())
 
