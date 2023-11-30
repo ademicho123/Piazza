@@ -13,12 +13,12 @@ const postSchema = mongoose.Schema({
     likes:{
         type:String
     },
-    comment:{
+    dislikes:{
         type:String
     },
-    dislike:{
+    comment:{
         type:String
     }
 })
 
-module.exports = mongoose.model('films',postSchema)
+module.exports = mongoose.model('posts',postSchema)

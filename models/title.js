@@ -7,4 +7,4 @@ const titleSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('films',titleSchema)
+module.exports = mongoose.model('title',titleSchema)
