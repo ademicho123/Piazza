@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const User = require('../models/user')
-/*const {registerValidation,loginValidation} = require('../validations/validation')*/
+const {registerValidation, loginValidation} = require('../validations/validation')
 
 const bcryptjs = require('bcryptjs')
 const jsonwebtoken = require('jsonwebtoken')
@@ -37,7 +37,6 @@ router.post('/register', async(req,res)=>{
     }catch(err){
         res.status(400).send({message:err})
     }
-    
 })
 
 router.post('/login', async(req,res)=>{
@@ -65,5 +64,5 @@ router.post('/login', async(req,res)=>{
     res.header('auth-token',token).send({'auth-token':token})
 
 })
-
+  
 module.exports = router

@@ -6,10 +6,10 @@ const Post  = require('../models/post')
 
 router.get('/', async(req, res)=>{
     try{
-        const post = await post.find()
-        res.send(posts)
+        const post = await Post.find()
+        res.send(post)
     }catch(err){
-        res.status(400).send({message})
+        res.status(400).send(end)
     }    
 })
 

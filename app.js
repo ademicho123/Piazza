@@ -12,7 +12,7 @@ const postRoute = require('./routes/posts')
 const authRoute = require('./routes/auth')
 
 app.use('/api/post', postRoute)
-app.use('/api/users', authRoute)
+app.use('/api/user', authRoute)
 
 
 mongoose.connect(process.env.DB_CONNECTOR)
@@ -20,6 +20,6 @@ mongoose.connect(process.env.DB_CONNECTOR)
     console.log("Connected to MongoDB");
   })
 
-app.listen(3000, ()=>{
+app.listen(3001, ()=>{
     console.log('Server is up and running')
 })
