@@ -18,6 +18,14 @@ const postSchema = mongoose.Schema({
     },
     comment:{
         type:String
+    },
+    expirationDate: {
+        type: Date,
+        required: true,
+    },
+    isExpired: {
+        type: Boolean,
+        default: false,
     }
 })
 
