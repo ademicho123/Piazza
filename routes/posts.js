@@ -3,8 +3,9 @@ const express = require('express')
 const router = express.Router()
 
 const Post  = require('../models/post')
+const verifyToken = require('../verifyToken')
 
-router.get('/', async(req, res)=>{
+router.get('/', verifyToken, async(req, res)=>{
     try{
         const post = await Post.find()
         res.send(post)
