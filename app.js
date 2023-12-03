@@ -23,28 +23,39 @@ mongoose.connect(process.env.DB_CONNECTOR)
   })
 
 // ********************************
-app.post('/api/post', (req, res) => {
-    // Extract data from the request body
-    const { username, title, content } = req.body;
+app.post('/api/post/create', async (req, res) => {
+    try {
+      // Extract data from the request body
+      const { username, title, content, category, expirationMinutes } = req.body;
   
-// Set expiration time
-const expirationDate = new Date();
-expirationDate.setMinutes(expirationDate.getMinutes() + expirationMinutes);
-
-    // Create a new post instance
-    const post = new Post({username, title, content, expirationDate});
+      // Validate expirationMinutes
+      if (!expirationMinutes || isNaN(expirationMinutes)) {
+        return res.status(400).json({ error: 'Invalid expirationMinutes' });
+      }
   
-    // Save the post to the database
-    post.save()
-      .then(savedPost => {
-        res.status(201).json(savedPost);
-      })
-      .catch(err => {
-        res.status(500).json({ error: err.message });
-      });
+      // Set expiration time
+      const expirationDate = new Date();
+      expirationDate.setMinutes(expirationDate.getMinutes() + parseInt(expirationMinutes));
+  
+      // Validate category
+      const validCategories = ['politics', 'health', 'sport', 'tech'];
+      if (!validCategories.includes(category)) {
+        return res.status(400).json({ error: 'Invalid category' });
+      }
+  
+      // Create a new post instance
+      const post = new Post({ username, title, content, category, expirationDate });
+  
+      // Save the post to the database
+      const savedPost = await post.save();
+  
+      res.status(201).json(savedPost);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
   });
-  
 
-app.listen(3001, ()=>{
+app.listen(3000, ()=>{
     console.log('Server is up and running')
 })

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 
+const Comment = require('../models/comment');
+const Post = require('../models/post');
+const User = require('../models/user');
+
 const postSchema = mongoose.Schema({
     username:{
         type:String
@@ -16,8 +20,17 @@ const postSchema = mongoose.Schema({
     dislikes:{
         type:String
     },
-    comment:{
-        type:String
+    comment: {
+        type: [{
+            username: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'users',
+            },
+            content: {
+                type: String,
+            },
+        }],
+        ref: 'comments',
     },
     expirationDate: {
         type: Date,
@@ -26,6 +39,10 @@ const postSchema = mongoose.Schema({
     isExpired: {
         type: Boolean,
         default: false,
+    },
+    category: {
+        type: String, 
+        enum: ['politics', 'health', 'sport', 'tech'],
     }
 })
 
